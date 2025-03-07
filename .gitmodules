@@ -1,0 +1,6 @@
+[submodule "Modernprocore-UI"]
+	path = Modernprocore-UI
+	url = https://github.com/SamiMK16/Modernprocore-UI-.git
+[submodule "modernprocure/modernprocure"]
+	path = modernprocure/modernprocure
+	url = https://github.com/SamiMK16/modernprocurev3.git
