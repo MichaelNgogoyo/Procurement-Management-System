@@ -10,4 +10,7 @@ target
 README.md
 docker-compose.yml
 railway.toml
-Procfile 
+Procfile
+Modernprocore-UI/node_modules
+Modernprocore-UI/dist
+modernprocure/target 
