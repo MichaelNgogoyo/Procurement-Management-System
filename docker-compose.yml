@@ -19,7 +19,7 @@ services:
 
   backend:
     build: 
-      context: ./modernprocure/modernprocure
+      context: ./modernprocure
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
