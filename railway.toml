@@ -11,4 +11,14 @@ restartPolicyMaxRetries = 10
 
 [[services]]
 name = "db"
-volume = "/var/lib/postgresql/data" 
+volume = "/var/lib/postgresql/data"
+
+[[services]]
+name = "backend"
+healthcheckPath = "/actuator/health"
+healthcheckTimeout = 100
+
+[[services]]
+name = "frontend"
+healthcheckPath = "/"
+healthcheckTimeout = 100 
