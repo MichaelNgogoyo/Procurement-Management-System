@@ -1,3 +1,90 @@
+# ModernProcure Frontend
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js 16+
+- Yarn package manager
+- Docker (for containerization)
+
+### Local Development
+1. Install dependencies:
+```bash
+yarn install
+```
+
+2. Start development server:
+```bash
+yarn serve
+```
+
+3. Build for production:
+```bash
+yarn build
+```
+
+### Docker Setup
+1. Build the image:
+```bash
+docker build -t modernprocure-frontend .
+```
+
+2. Run the container:
+```bash
+docker run -p 8080:80 modernprocure-frontend
+```
+
+### Environment Variables
+Required environment variables:
+```
+NODE_ENV=production
+VUE_APP_API_ENDPOINT=${API_URL}
+VUE_APP_CLIENT_ID=${CLIENT_ID}
+VUE_APP_CLIENT_SECRET=${CLIENT_SECRET}
+```
+
+### Project Structure
+```
+Modernprocore-UI/
+├── src/                # Source code
+├── public/            # Static files
+├── nginx.conf         # Nginx configuration
+├── Dockerfile         # Docker configuration
+└── package.json       # Dependencies and scripts
+```
+
+### Deployment
+1. Push to GitHub:
+```bash
+git add .
+git commit -m "Update frontend"
+git push origin main
+```
+
+2. Railway will automatically deploy from the main branch
+
+### Health Checks
+- Endpoint: `/`
+- Interval: 30s
+- Timeout: 10s
+- Retries: 3
+
+### Troubleshooting
+1. Build Issues
+   - Clear node_modules and yarn cache
+   - Verify Node.js version
+   - Check for dependency conflicts
+
+2. Runtime Issues
+   - Check environment variables
+   - Verify API endpoint configuration
+   - Check browser console for errors
+
+3. Docker Issues
+   - Verify Docker installation
+   - Check port conflicts
+   - Review container logs
+
 # login-app
 
 ## Project setup
@@ -75,7 +162,7 @@ Milestone 1: Setting up the development environment
 * Get your project off to a good start by installing a solid, rigorous development environment VueJs as well as setting up the files you will
   need for your development work. We also need the lts version of Vuetify and a router in our project.
   🎯Once this step is completed you will have:
-  ● A src folder in which we’ll do all the code.
+  ● A src folder in which we'll do all the code.
   ● A public folder with our main index.html file and logo of our website.
   Resources:
   ● For install Vue

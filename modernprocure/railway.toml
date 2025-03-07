@@ -5,4 +5,18 @@ dockerfilePath = "Dockerfile"
 [deploy]
 startCommand = "java -jar app.jar"
 restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10 
+restartPolicyMaxRetries = 10
+
+[deploy.env]
+SPRING_PROFILES_ACTIVE = "prod"
+SPRING_DATASOURCE_URL = "${DATABASE_URL}"
+SPRING_DATASOURCE_USERNAME = "${PGUSER}"
+SPRING_DATASOURCE_PASSWORD = "${PGPASSWORD}"
+SPRING_JPA_HIBERNATE_DDL_AUTO = "update"
+SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT = "org.hibernate.dialect.PostgreSQLDialect"
+SPRING_FLYWAY_BASELINE_ON_MIGRATE = "true"
+SPRING_FLYWAY_LOCATIONS = "classpath:db/migration"
+SPRING_FLYWAY_SCHEMAS = "${PGDATABASE}"
+SPRING_FLYWAY_TABLE = "flyway_schema_history"
+SPRING_FLYWAY_VALIDATE_ON_MIGRATE = "true"
+SPRING_FLYWAY_CLEAN_DISABLED = "true" 
