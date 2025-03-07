@@ -1,7 +1,13 @@
-FROM docker:20.10.16-dind
+FROM alpine:3.18
 
-# Install docker-compose and other dependencies
-RUN apk add --no-cache docker-compose bash
+# Install Docker and docker-compose
+RUN apk add --no-cache \
+    docker \
+    docker-cli \
+    docker-cli-buildx \
+    docker-cli-compose \
+    bash \
+    curl
 
 # Create app directory
 WORKDIR /app
@@ -19,4 +25,4 @@ RUN chmod -R 755 /app
 EXPOSE 8080 8081 5432
 
 # Start docker-compose
-CMD ["docker-compose", "up"] 
+CMD ["docker", "compose", "up"] 

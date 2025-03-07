@@ -7,14 +7,24 @@
 README.md
 railway.toml
 Procfile
+Dockerfile
+.dockerignore
 
 # Frontend
 Modernprocore-UI/node_modules
 Modernprocore-UI/dist
 Modernprocore-UI/.env
 Modernprocore-UI/.env.*
+Modernprocore-UI/.git
+Modernprocore-UI/.gitignore
+Modernprocore-UI/coverage
+Modernprocore-UI/.cache
 
 # Backend
 modernprocure/target
 modernprocure/.env
-modernprocure/.env.* 
+modernprocure/.env.*
+modernprocure/.git
+modernprocure/.gitignore
+modernprocure/.idea
+modernprocure/.vscode 
