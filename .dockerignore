@@ -2,15 +2,19 @@
 .gitignore
 .env
 .env.*
-node_modules
-dist
-target
 *.log
 .DS_Store
 README.md
-docker-compose.yml
 railway.toml
 Procfile
+
+# Frontend
 Modernprocore-UI/node_modules
 Modernprocore-UI/dist
-modernprocure/target 
+Modernprocore-UI/.env
+Modernprocore-UI/.env.*
+
+# Backend
+modernprocure/target
+modernprocure/.env
+modernprocure/.env.* 
