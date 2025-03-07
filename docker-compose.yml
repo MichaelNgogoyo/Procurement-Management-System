@@ -6,47 +6,63 @@ services:
       context: ./Modernprocore-UI
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "${PORT:-8080}:80"
     environment:
       - NODE_ENV=production
-      - VUE_APP_API_ENDPOINT=http://localhost:8081/
-      - VUE_APP_CLIENT_ID=client
-      - VUE_APP_CLIENT_SECRET=secret
+      - VUE_APP_API_ENDPOINT=${API_URL}
+      - VUE_APP_CLIENT_ID=${CLIENT_ID}
+      - VUE_APP_CLIENT_SECRET=${CLIENT_SECRET}
     depends_on:
       - backend
     networks:
       - modernprocure-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   backend:
     build: 
       context: ./modernprocure
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
+      - "${PORT:-8081}:8081"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ted
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=strongpassword
-      - AUTH_TOKEN_URL=http://localhost:8081/oauth/token
-      - AUTH_CLIENT_ID=client
-      - AUTH_CLIENT_SECRET=secret
+      - SPRING_DATASOURCE_URL=${DATABASE_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+      - AUTH_TOKEN_URL=${AUTH_TOKEN_URL}
+      - AUTH_CLIENT_ID=${CLIENT_ID}
+      - AUTH_CLIENT_SECRET=${CLIENT_SECRET}
+      - SERVER_PORT=8081
     depends_on:
       - db
     networks:
       - modernprocure-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   db:
     image: postgres:14-alpine
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
     environment:
-      - POSTGRES_DB=ted
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=strongpassword
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - modernprocure-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_NAME}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:

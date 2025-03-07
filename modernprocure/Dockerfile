@@ -10,14 +10,9 @@ FROM openjdk:17-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# Environment variables with defaults that can be overridden
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/ted
-ENV SPRING_DATASOURCE_USERNAME=postgres
-ENV SPRING_DATASOURCE_PASSWORD=password
-ENV SERVER_PORT=8081
-ENV AUTH_CLIENT_ID=client
-ENV AUTH_CLIENT_SECRET=secret
-ENV AUTH_TOKEN_URL=http://localhost:8081/oauth/token
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget --spider http://localhost:8081/actuator/health || exit 1
 
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "app.jar"] 
